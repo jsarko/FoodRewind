@@ -1,0 +1,40 @@
+{% extends 'food_rewind/base.html' %} {% block content %}
+
+<style>
+  .header {
+    /* font-weight: 300; */
+    font-size: 35px;
+  }
+  .details img {
+    max-width: 400px;
+    border: 10px solid black;
+    border-radius: 10px;
+  }
+  .details {
+    margin-top: 50px;
+  }
+</style>
+
+<div class="row details">
+  <div class="col s12">
+    <div class="row">
+      <div class="col s12 l5">
+        <img src="{{dish.image}}" />
+      </div>
+      <div class="col s12 l7">
+        <span class="header">{{dish.name}}</span>
+        <ul>
+          {% for tag in dish.tags.all %}
+          <li class="tags">{{tag.name}}</li>
+          {% empty %} No Tags {% endfor %}
+        </ul>
+        <div class="divider"></div>
+        <div class="section">
+          {{dish.recipe|safe}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

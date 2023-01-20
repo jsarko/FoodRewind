@@ -1,0 +1,35 @@
+{% extends 'food_rewind/base.html' %} {% block content %}
+<head>
+    {{form.media}}
+<style>
+    .tox .tox-edit-area__iframe {
+        background-color: white;
+    }
+</style>
+</head>
+{% if msg %}
+  <div id="msg_box">
+    <p class="{% if msg == 'success' %}green
+              {% else %}red
+              {% endif %}"
+    >{{msg}}</p>
+  </div>
+{% endif %}
+<form action="" method="post">
+  {% csrf_token %}
+  <table class=>
+    {{form.as_table}}
+  </table>
+  <button class="btn waves-effect waves-light black white-text" type="submit" name="action">
+    Submit
+    <i class="material-icons right">send</i>
+  </button>
+</form>
+
+<script>
+  $(function(){
+    $('#msg_box').delay(1000).fadeOut(500)
+  });
+</script>
+
+{% endblock %}
