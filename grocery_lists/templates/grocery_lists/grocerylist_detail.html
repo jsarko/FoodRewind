@@ -1,0 +1,9 @@
+<p>{{object.name}}</p>
+<p>Created on: {{object.created_at}}</p>
+<ul>
+    {% for item in object.groceries.all %}
+    <li>{{item.name}}</li>
+    {% empty %}
+    You haven't added any items to this list.
+    {% endfor %}
+</ul>

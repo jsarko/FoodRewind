@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse
-from food_rewind.models import Dish, Tags
-from food_rewind.forms import AddDishForm
+from .models import Dish, Tags
+from .forms import AddDishForm
 from django.http import HttpResponseRedirect
 # Create your views here.
 
