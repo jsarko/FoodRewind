@@ -1,8 +1,8 @@
 <p>{{object.name}}</p>
-<p>Created on: {{object.created_at}}</p>
+<p>Created on: {{object.created_on}}</p>
 <ul>
     {% for item in object.groceries.all %}
-    <li>{{item.name}}</li>
+    <li>{{item.name}} - Fav: {{item.is_favorite}} | In-Bag: {{item.in_bag}}</li>
     {% empty %}
     You haven't added any items to this list.
     {% endfor %}

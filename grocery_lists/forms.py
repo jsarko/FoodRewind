@@ -12,4 +12,4 @@ class GroceryItemForm(ModelForm):
         fields = ['name', 'in_bag', "is_favorite"]
         
 GroceryListFormset = inlineformset_factory(GroceryList, GroceryItem,
-                                            form=GroceryItemForm)
+                                            form=GroceryItemForm, extra=1)
