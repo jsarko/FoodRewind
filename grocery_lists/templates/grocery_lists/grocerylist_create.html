@@ -1,8 +1,18 @@
+{% extends "grocery_lists/form_base.html" %}
 {% load static %}
-
 {% comment %} Formset logic detailed here: https://medium.com/@adandan01/django-inline-formsets-example-mybook-420cc4b6225d {% endcomment %}
-
+{% block form %}
+<style>
+    .btn-add {
+        width: 100%;
+        {% comment %} border: 1px solid teal;
+        border-radius: 5px; {% endcomment %}
+    }
+</style>
 <div class="col-md-4">
+    <button class="btn waves-effect waves-light green right" type="submit" name="action">Save
+        <i class="material-icons right">check</i>
+    </button>
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}
 
@@ -35,15 +45,17 @@
                 </tr>
             {% endfor %}
         </table>
-        <input type="submit" value="Save"/>
     </form>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="{% static 'formset/jquery.formset.js' %}"></script>
 <script type="text/javascript">
     $('.formset_row').formset({
-        addText: 'add grocery item',
+        addText: '<i class="material-icons">add</i>',
         deleteText: 'remove',
-        prefix: 'groceries_set'
+        prefix: 'groceries_set',
+        addCssClass: 'btn waves-effect waves-light btn-add'
     });
+    $('.btn-add').parent().css("text-align", "center");
 </script>
+{% endblock %}

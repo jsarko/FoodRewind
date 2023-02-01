@@ -1,3 +1,5 @@
+{% extends "grocery_lists/base.html" %}
+{% block content %}
 <p>{{object.name}}</p>
 <p>Created on: {{object.created_on}}</p>
 <ul>
@@ -7,3 +9,4 @@
     You haven't added any items to this list.
     {% endfor %}
 </ul>
+{% endblock %}

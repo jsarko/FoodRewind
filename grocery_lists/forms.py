@@ -1,4 +1,4 @@
-from django.forms import ModelForm, inlineformset_factory
+from django.forms import ModelForm, inlineformset_factory, HiddenInput
 from .models import GroceryList, GroceryItem
 
 class GroceryListForm(ModelForm):
@@ -10,6 +10,10 @@ class GroceryItemForm(ModelForm):
     class Meta:
         model = GroceryItem
         fields = ['name', 'in_bag', "is_favorite"]
+        widgets = {
+            'is_favorite': HiddenInput(),
+            'in_bag': HiddenInput()
+        }
         
 GroceryListFormset = inlineformset_factory(GroceryList, GroceryItem,
                                             form=GroceryItemForm, extra=1)
