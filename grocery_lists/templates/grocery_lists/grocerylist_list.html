@@ -1,7 +1,18 @@
 {% extends "grocery_lists/base.html" %}
 {% block content %}
 {% for list in object_list %}
-<p><a href="{{list.id}}">{{list.name}}</a></p>
+<div class="row">
+    <div class="col s12 m5">
+        <a href="{% url 'groceries:detail' list.pk %}">
+            <div class="card-panel">
+                <p>
+                    {{list.name}}
+                </p>
+                <label>Created on: {{list.created_on}}</label>
+            </div>
+        </a>
+    </div>
+</div>
 {% empty %}
 <p>No grocery lists. <a href="create">Create one</a></p>
 {% endfor %}

@@ -46,7 +46,8 @@
     $('.formset_row').formset({
         addText: 'add grocery item',
         deleteText: 'remove',
-        prefix: 'groceries_set'
+        prefix: '{{ groceries.prefix }}'
     });
+    console.log('prefix: {{ groceries.prefix }}')
 </script>
 {% endblock %}

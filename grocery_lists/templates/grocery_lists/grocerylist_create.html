@@ -8,19 +8,25 @@
         {% comment %} border: 1px solid teal;
         border-radius: 5px; {% endcomment %}
     }
+    .btn-delete:hover {
+        background-color: rgba(255,100,100,.35);
+    }
+
+
 </style>
 <div class="col-md-4">
-    <button class="btn waves-effect waves-light green right" type="submit" name="action">Save
-        <i class="material-icons right">check</i>
-    </button>
     <form action="" method="post">{% csrf_token %}
+        <button class="btn waves-effect waves-light green right" type="submit" name="action">Save
+            <i class="material-icons right">check</i>
+        </button>
         {{ form.as_p }}
 
         <table class="table">
             {{ groceries.management_form }}
 
+            {% comment %} <h3 class="center-align">Groceries</h3> {% endcomment %}
             {% for form in groceries.forms %}
-                {% if forloop.first %}
+                {% comment %} {% if forloop.first %}
                     <thead>
                     <tr>
                         {% for field in form.visible_fields %}
@@ -28,7 +34,7 @@
                         {% endfor %}
                     </tr>
                     </thead>
-                {% endif %}
+                {% endif %} {% endcomment %}
                 <tr class="{% cycle row1 row2 %} formset_row">
                     {% for field in form.visible_fields %}
                         <td>
@@ -39,7 +45,12 @@
                                 {% endfor %}
                             {% endif %}
                             {{ field.errors.as_ul }}
-                            {{ field }}
+                            {% if field.name == "is_favorite" %}
+                                <input type="hidden" id="{{field.id_for_label}}" name="groceries-{{forloop.counter0}}-is_favorite"/>
+                                <i id="{{field.id_for_label}}-btn" name="groceries-{{forloop.counter0}}-is_favorite-btn" class="material-icons">favorite_border</i>
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
                         </td>
                     {% endfor %}
                 </tr>
@@ -52,10 +63,15 @@
 <script type="text/javascript">
     $('.formset_row').formset({
         addText: '<i class="material-icons">add</i>',
-        deleteText: 'remove',
-        prefix: 'groceries_set',
-        addCssClass: 'btn waves-effect waves-light btn-add'
+        deleteText: '<i class="material-icons red-text text-darken-2">delete</i>',
+        prefix: '{{groceries.prefix}}',
+        addCssClass: 'btn waves-effect waves-light btn-add',
+        deleteCssClass: 'waves-effect waves-red btn-flat btn-delete',
     });
     $('.btn-add').parent().css("text-align", "center");
+    {% comment %} const favoriteButton = () => {
+        return '<i class="material-icons">favorite_border</i>'
+    }
+    $('input[name*="is_favorite"').parent().html(favoriteButton); {% endcomment %}
 </script>
 {% endblock %}
