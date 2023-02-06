@@ -11,7 +11,21 @@
     .btn-delete:hover {
         background-color: rgba(255,100,100,.35);
     }
-
+    .btn-delete {
+        border 1px solid white;
+    }
+    tr {
+        border-bottom: unset;
+    }
+    body {
+        background-image: radial-gradient(circle, #ff6f6f, #fb6968, #f86262, #f45c5b, #f05555);
+    }
+    label, input {
+        color: white;
+    }
+    input {
+        border-bottom: 1px solid white !Important;
+    }
 
 </style>
 <div class="col-md-4">
@@ -46,8 +60,12 @@
                             {% endif %}
                             {{ field.errors.as_ul }}
                             {% if field.name == "is_favorite" %}
-                                <input type="hidden" id="{{field.id_for_label}}" name="groceries-{{forloop.counter0}}-is_favorite"/>
-                                <i id="{{field.id_for_label}}-btn" name="groceries-{{forloop.counter0}}-is_favorite-btn" class="material-icons">favorite_border</i>
+                                {% comment %} <p>
+                                    <label>
+                                      <input type="checkbox" id="{{field.id_for_label}}" name="groceries-{{forloop.counter0}}-is_favorite" />
+                                      <span>Favorite</span>
+                                    </label>
+                                </p> {% endcomment %}
                             {% else %}
                                 {{ field }}
                             {% endif %}
@@ -63,11 +81,14 @@
 <script type="text/javascript">
     $('.formset_row').formset({
         addText: '<i class="material-icons">add</i>',
-        deleteText: '<i class="material-icons red-text text-darken-2">delete</i>',
+        deleteText: '<i class="material-icons white-text">clear</i>',
         prefix: '{{groceries.prefix}}',
         addCssClass: 'btn waves-effect waves-light btn-add',
-        deleteCssClass: 'waves-effect waves-red btn-flat btn-delete',
+        deleteCssClass: 'waves-effect waves-red transparent btn-delete',
     });
+    function favoriteItem(index) {
+        console.log("clicked: ", index);
+    }
     $('.btn-add').parent().css("text-align", "center");
     {% comment %} const favoriteButton = () => {
         return '<i class="material-icons">favorite_border</i>'
