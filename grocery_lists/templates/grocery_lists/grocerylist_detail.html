@@ -4,7 +4,7 @@
 <p>Created on: {{object.created_on}}</p>
 <ul>
     {% for item in object.groceries.all %}
-    <li>{{item.name}} - Fav: {{item.is_favorite}} | In-Bag: {{item.in_bag}}</li>
+    <li>{{item.name}} - Fav: {{item.is_favorite}} | In-Bag: {{item.in_bag}} | {{item.category}} aisle</li>
     {% empty %}
     You haven't added any items to this list.
     {% endfor %}

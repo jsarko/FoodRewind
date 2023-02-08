@@ -9,7 +9,7 @@ class GroceryListForm(ModelForm):
 class GroceryItemForm(ModelForm):
     class Meta:
         model = GroceryItem
-        fields = ["is_favorite", 'name', 'in_bag', ]
+        fields = ["is_favorite", 'name', 'in_bag', 'category']
         widgets = {
             # 'is_favorite': HiddenInput(),
             'in_bag': HiddenInput()
