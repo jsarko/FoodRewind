@@ -18,3 +18,6 @@ class GroceryItem(models.Model):
 class GroceryList(models.Model):
     name = models.CharField(max_length=100, default=default_grocery_list_name(), unique=True)
     created_on = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.name

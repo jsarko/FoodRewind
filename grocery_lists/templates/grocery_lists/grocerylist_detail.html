@@ -1,12 +1,160 @@
 {% extends "grocery_lists/base.html" %}
 {% block content %}
-<p>{{object.name}}</p>
-<p>Created on: {{object.created_on}}</p>
-<ul>
-    {% for item in object.groceries.all %}
-    <li>{{item.name}} - Fav: {{item.is_favorite}} | In-Bag: {{item.in_bag}} | {{item.category}} aisle</li>
-    {% empty %}
-    You haven't added any items to this list.
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<style>
+    body {
+        {% comment %} background-image: radial-gradient(circle, #ff6f6f, #fb6968, #f86262, #f45c5b, #f05555); {% endcomment %}
+        {% comment %} background-image: radial-gradient(circle, #148eb0, #0081b3, #0074b3, #1264b0, #3a53a7); {% endcomment %}
+        background-image: radial-gradient(circle, #2da8c6, #29b2d0, #23bcd9, #1cc6e2, #12d0eb);
+    }
+    h3,h5,p {
+        color:white;
+    }
+    h3 {
+        color: #f4ffd7;
+        text-shadow: 2px 1px 4px #1f6180;
+    }
+    label {
+        color: #ffffff96;
+    }
+    .collection a.collection-item {
+        color: #286e78
+    }
+    .collection {
+        border: 3px solid #e4e4e4;
+    }
+    .collapsible-body {
+        padding: unset;
+    }
+    .collapsible-header {
+        color: #286e78;
+        display: block;
+    }
+    .item-count {
+        color: unset;
+        padding-top: 3px;
+        padding-left: 5px;
+        color: #b9b9b9;
+    }
+</style>
+<h3 class="center-align">{{object.name}}</h3>
+<p class="center-align"><label >Created on: {{object.created_on}}</label></p>
+{% regroup object.groceries.all|dictsort:"category" by category as category_list %}
+<ul class="collapsible">
+    {% for category in category_list %}
+        <li>
+            <div 
+            id='category-{{ forloop.counter0 }}' 
+            class="collapsible-header" 
+            onclick="handleAccordianClick('category-{{ forloop.counter0 }}')">
+                <i class="material-icons left">expand_more</i>
+                {{category.grouper}}
+                <label class="item-count right"><span id="id-{{category.grouper}}-item-count">0</span>/{{category.list|length}} Items</label>
+            </div>
+            <div class="collapsible-body">
+                <ul class="collection">
+                    {% for item in category.list %}
+                        <a 
+                        id='{{category.grouper}}-item-{{ forloop.counter0 }}' 
+                        onclick="placeInBag('{{category.grouper}}-item-{{ forloop.counter0 }}', {{item.id}}, '{{item.name}}', '{{item.category}}')" 
+                        href="#!" class="collection-item">
+                            {% if item.in_bag %}
+                            <i class="material-icons left">check_box</i>{{item.name|title}}
+                            {% else %}
+                            <i class="material-icons left">check_box_outline_blank</i>{{item.name|title}}
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </li>
+        </li>
     {% endfor %}
 </ul>
+
+<script>
+    $(document).ready(function(){
+        $('.collapsible').collapsible();
+    });
+    $('.collapsible-header').click(
+        () => {
+            $('.active').css("background-color", "hotpink")
+        }
+    )
+    function handleAccordianClick(id){
+        // Accordian HTML
+        let accordian_elem = $("#"+id)
+        if (accordian_elem.is(":contains('expand_more')")){
+            accordian_elem.html(accordian_elem.html().replace("expand_more", "expand_less"))
+        } else {
+            accordian_elem.html(accordian_elem.html().replace("expand_less", "expand_more"))
+        }
+    }
+    function placeInBag(element, itemId, itemName, itemCategory){
+        // TODO: Convert element to a form and pass that back here
+        let elemId = $("#"+element)
+        console.log("ItemID:", itemId)
+        if (elemId.is(":contains('check_box_outline_blank')")) {
+            // Place item in bag
+
+            // Check box
+            elemId.html(
+                elemId.html().replace("check_box_outline_blank", "check_box")
+            )
+            payload = {
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "itemId": itemId,
+                "inBag": true
+            }
+            $.post(
+                "/groceries/{{object.id}}/addToBag",
+                payload,
+            ).done(() => console.log("Success")).fail(() => console.log("Fail"))
+        } else {
+            // Place item in bag
+            console.log("removing")
+            // Check box
+            elemId.html(
+                elemId.html().replace("check_box", "check_box_outline_blank")
+            )
+            payload = {
+                "csrfmiddlewaretoken": '{{csrf_token}}',
+                "itemId": itemId,
+                "inBag": false
+            }
+            $.post(
+                "/groceries/{{object.id}}/addToBag",
+                payload,
+            ).done(() => console.log("Success")).fail(() => console.log("Fail"))
+        }
+        // On success return new list of items with in bag set
+        getBagCounts()
+    }
+    function getBagCounts() {
+        console.log("Counting items in bag")
+        let itemCounts = {}
+        // Convert django queryset into a list of categories of items
+        // that have been placed in a bag
+        const items = [
+            {% for item in object.groceries.all %}
+                {% if item.in_bag %}
+                    "{{item.category}}",
+                {% endif %}
+            {% endfor %}
+        ]
+        // Count the number of category occurences
+        for (const category of items) {
+            itemCounts[category] = itemCounts[category] ? itemCounts[category] + 1: 1
+        }
+        // update the count in the DOM
+        console.log("ItemCounts:", itemCounts)
+        for (category in itemCounts){
+            const id = `id-${category}-item-count`
+            const elem = $(`#${id}`)
+            elem.html(itemCounts[category])
+        }
+
+    }
+    getBagCounts()
+</script>
 {% endblock %}

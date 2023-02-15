@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.db import transaction
+from django.http import HttpResponseBadRequest, HttpResponse
 
 from .models import GroceryList, GroceryItem
 from .forms import GroceryListForm, GroceryListFormset
@@ -55,3 +56,12 @@ class UpdateGroceryListView(UpdateView):
                 groceries.instance = self.object
                 groceries.save()
         return super().form_valid(form)
+
+def addToBag(request, pk):
+    if request.method == "POST":
+        item_id = request.POST.get('itemId')
+        in_bag = True if request.POST.get('inBag').lower() == "true" else False
+        GroceryItem.objects.filter(pk=item_id).update(in_bag=in_bag)
+        return HttpResponse(204)
+    else:
+        return HttpResponseBadRequest()
