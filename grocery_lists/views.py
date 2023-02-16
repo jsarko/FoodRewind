@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.db import transaction
-from django.http import HttpResponseBadRequest, HttpResponse
+from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 
 from .models import GroceryList, GroceryItem
 from .forms import GroceryListForm, GroceryListFormset
@@ -62,6 +62,7 @@ def addToBag(request, pk):
         item_id = request.POST.get('itemId')
         in_bag = True if request.POST.get('inBag').lower() == "true" else False
         GroceryItem.objects.filter(pk=item_id).update(in_bag=in_bag)
-        return HttpResponse(204)
+        items_in_bag = GroceryItem.objects.filter(grocery_list__pk=pk, in_bag=True)
+        return JsonResponse(list(items_in_bag.values()), safe=False)
     else:
         return HttpResponseBadRequest()

@@ -109,7 +109,13 @@
             $.post(
                 "/groceries/{{object.id}}/addToBag",
                 payload,
-            ).done(() => console.log("Success")).fail(() => console.log("Fail"))
+            )
+                .done(
+                    (data) => getBagCounts(data)
+                )
+                .fail(
+                    () => console.log("Fail")
+                )
         } else {
             // Place item in bag
             console.log("removing")
@@ -125,23 +131,34 @@
             $.post(
                 "/groceries/{{object.id}}/addToBag",
                 payload,
-            ).done(() => console.log("Success")).fail(() => console.log("Fail"))
+            )
+                // On success return new list of items with in bag set
+                .done(
+                    (data) => getBagCounts(data))
+                .fail(
+                    () => console.log("Fail"))
         }
-        // On success return new list of items with in bag set
-        getBagCounts()
     }
-    function getBagCounts() {
+    function getBagCounts(data) {
         console.log("Counting items in bag")
         let itemCounts = {}
         // Convert django queryset into a list of categories of items
         // that have been placed in a bag
-        const items = [
-            {% for item in object.groceries.all %}
-                {% if item.in_bag %}
-                    "{{item.category}}",
-                {% endif %}
-            {% endfor %}
-        ]
+        if (data == undefined){
+            var items = [
+                {% for item in object.groceries.all %}
+                    {% if item.in_bag %}
+                        "{{item.category}}",
+                    {% endif %}
+                {% endfor %}
+            ]
+        } else {
+            var items = []
+            for (const item of data){
+                items.push(item['category'])
+            }
+        }
+        console.log("Items:", items)
         // Count the number of category occurences
         for (const category of items) {
             itemCounts[category] = itemCounts[category] ? itemCounts[category] + 1: 1
