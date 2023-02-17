@@ -1,6 +1,23 @@
 {% extends "grocery_lists/base.html" %}
 {% block content %}
-{% for list in object_list %}
+<style>
+    h3 {
+        color: #286e78;
+        font-family: monospace;
+    }
+    body {
+        --stripe: #cfd8dc;
+        --bg: #e1e1e1;
+      
+        background: linear-gradient(135deg, var(--bg) 25%, transparent 25%) -50px 0,
+          linear-gradient(225deg, var(--bg) 25%, transparent 25%) -50px 0,
+          linear-gradient(315deg, var(--bg) 25%, transparent 25%),
+          linear-gradient(45deg, var(--bg) 25%, transparent 25%);
+        background-size: 100px 100px;
+        background-color: var(--stripe);
+    }
+</style>
+{% comment %} {% for list in object_list %}
 <div class="row">
     <div class="col s12 m5">
         <a href="{% url 'groceries:detail' list.pk %}">
@@ -15,5 +32,13 @@
 </div>
 {% empty %}
 <p>No grocery lists. <a href="create">Create one</a></p>
-{% endfor %}
+{% endfor %} {% endcomment %}
+<nav class="white">
+<h3 class="center-align">Grocery Lists</h3>
+</nav>
+<div class="collection card-panel">
+    {% for list in object_list %}
+        <a href="{% url 'groceries:detail' list.pk %}" class="collection-item">{{list.name}}<label class="right">Created on: {{list.created_on}}</label></a>
+    {% endfor %}
+  </div>
 {% endblock %}

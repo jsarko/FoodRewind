@@ -9,6 +9,8 @@ from .forms import GroceryListForm, GroceryListFormset
 # Create your views here.
 class ListGroceryListView(ListView):
     model = GroceryList
+    paginate_by = 10
+    ordering = ['-created_on']
     
 class CreateGroceryListView(CreateView):
     model = GroceryList

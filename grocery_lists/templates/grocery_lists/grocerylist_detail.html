@@ -5,18 +5,25 @@
     body {
         {% comment %} background-image: radial-gradient(circle, #ff6f6f, #fb6968, #f86262, #f45c5b, #f05555); {% endcomment %}
         {% comment %} background-image: radial-gradient(circle, #148eb0, #0081b3, #0074b3, #1264b0, #3a53a7); {% endcomment %}
-        background-image: radial-gradient(circle, #2da8c6, #29b2d0, #23bcd9, #1cc6e2, #12d0eb);
+        {% comment %} background-image: radial-gradient(circle, #2da8c6, #29b2d0, #23bcd9, #1cc6e2, #12d0eb); {% endcomment %}
+        --stripe: #cfd8dc;
+        --bg: #e1e1e1;
+      
+        background: linear-gradient(135deg, var(--bg) 25%, transparent 25%) -50px 0,
+          linear-gradient(225deg, var(--bg) 25%, transparent 25%) -50px 0,
+          linear-gradient(315deg, var(--bg) 25%, transparent 25%),
+          linear-gradient(45deg, var(--bg) 25%, transparent 25%);
+        background-size: 100px 100px;
+        background-color: var(--stripe);
     }
-    h3,h5,p {
+    h5,p {
         color:white;
     }
     h3 {
-        color: #f4ffd7;
-        text-shadow: 2px 1px 4px #1f6180;
+        color: #286e78;
+        font-family: monospace;
     }
-    label {
-        color: #ffffff96;
-    }
+
     .collection a.collection-item {
         color: #286e78
     }
@@ -36,11 +43,14 @@
         padding-left: 5px;
         color: #b9b9b9;
     }
+    .collapsible {
+        background-color: white;
+    }
 </style>
-<h3 class="center-align">{{object.name}}</h3>
-<p class="center-align"><label >Created on: {{object.created_on}}</label></p>
 {% regroup object.groceries.all|dictsort:"category" by category as category_list %}
 <ul class="collapsible">
+    <h3 class="center-align">{{object.name}}</h3>
+    <p class="center-align"><label >Created on: {{object.created_on}}</label></p>
     {% for category in category_list %}
         <li>
             <div 
@@ -48,8 +58,8 @@
             class="collapsible-header" 
             onclick="handleAccordianClick('category-{{ forloop.counter0 }}')">
                 <i class="material-icons left">expand_more</i>
-                {{category.grouper}}
-                <label class="item-count right"><span id="id-{{category.grouper}}-item-count">0</span>/{{category.list|length}} Items</label>
+                <span class="category-title" id="id-{{category.grouper}}-title">{{category.grouper}}</span>
+                <label class="item-count right"><span class="item-count-span" id="id-{{category.grouper}}-item-count">0</span>/<span id="id-{{category.grouper}}-total-count">{{category.list|length}}</span> Items</label>
             </div>
             <div class="collapsible-body">
                 <ul class="collection">
@@ -141,6 +151,9 @@
     }
     function getBagCounts(data) {
         console.log("Counting items in bag")
+        console.log("Zeroing out")
+        $('.item-count .item-count-span').html("0");
+        $('.category-title').css("text-decoration", "unset");
         let itemCounts = {}
         // Convert django queryset into a list of categories of items
         // that have been placed in a bag
@@ -167,8 +180,22 @@
         console.log("ItemCounts:", itemCounts)
         for (category in itemCounts){
             const id = `id-${category}-item-count`
+            const totalId = `id-${category}-total-count`
+            const titleId = `id-${category}-title`
+            
             const elem = $(`#${id}`)
+            const totalElem = $(`#${totalId}`)
+            const titleElem = $(`#${titleId}`)
             elem.html(itemCounts[category])
+            if (elem.text() === totalElem.text()){
+                // strike through category name
+                titleElem.css(
+                    {
+                        "text-decoration": "line-through",
+                        "text-decoration-thickness": "2px"
+                    }
+                )
+            }
         }
 
     }
