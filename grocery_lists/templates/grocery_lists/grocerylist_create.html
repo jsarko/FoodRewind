@@ -14,58 +14,40 @@
         background-color: rgba(255,100,100,.35);
     }
     .btn-delete {
-        border 1px solid white;
+        {% comment %} border 1px solid white; {% endcomment %}
     }
     .btn-save {
-        color: #286e78 !important
+        width: 100%
     }
     tr {
         border-bottom: unset;
     }
-    body {
-        {% comment %} background-image: radial-gradient(circle, #ff6f6f, #fb6968, #f86262, #f45c5b, #f05555); {% endcomment %}
-        {% comment %} background-image: radial-gradient(circle, #148eb0, #0081b3, #0074b3, #1264b0, #3a53a7); {% endcomment %}
-        background-image: radial-gradient(circle, #2da8c6, #29b2d0, #23bcd9, #1cc6e2, #12d0eb);
-    }
+
     label, input {
-        color: white;
+        {% comment %} color: white; {% endcomment %}
     }
     input {
-        border-bottom: 1px solid white !Important;
+        {% comment %} border-bottom: 1px solid white !Important; {% endcomment %}
     }
     input#id_name {
-        border-bottom: none !important;
         color: #286e78;
-    }
-    nav {
-        background-color: #f8f8f8;
-        border-radius: 5px;
-        border: 2px solid #e8e8e8
     }
     select {
         width: 40%;
         background-color: unset;
         display:unset;
-        color: white;
+        {% comment %} color: white; {% endcomment %}
     }
 
 </style>
-<form action="" method="post">{% csrf_token %}
-    <nav>
-        <div class="nav-wrapper">
-            {% for field in form %}
-            <ul>
-                <li class="right">
-                    <button class="btn-flat white-text waves-effect waves-light btn-save" type="submit" name="action">Save
-                        <i class="material-icons">check</i>
-                    </button>
-                </li>
-                <li style="padding-left: 10px">{{field}}</li>
-            </ul>
-            
-            {% endfor %}
-        </div>
-    </nav>
+<form action="" method="post" class=" card-panel">{% csrf_token %}
+
+    {% for field in form %}
+    <div class="input-field">
+        {{field}}
+    <label for="{{field.name}}">Grocery List Name</label>
+    </div>
+    {% endfor %}
     <div class="col-md-4">
     <table class="table">
             {{ groceries.management_form }}
@@ -109,6 +91,9 @@
             {% endfor %}
         </table>
     </div>
+            <button class="btn waves-effect waves-light btn-save green darken-1" type="submit" name="action">
+                Save
+            </button>
     </form>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="{% static 'formset/jquery.formset.js' %}"></script>
@@ -116,7 +101,7 @@
     {% comment %} $('select').formSelect(); {% endcomment %}
     $('.formset_row').formset({
         addText: '<i class="material-icons">add</i>',
-        deleteText: '<i class="material-icons white-text">clear</i>',
+        deleteText: '<i class="material-icons">clear</i>',
         prefix: '{{groceries.prefix}}',
         addCssClass: 'btn waves-effect waves-light btn-add',
         deleteCssClass: 'waves-effect waves-red transparent btn-delete',

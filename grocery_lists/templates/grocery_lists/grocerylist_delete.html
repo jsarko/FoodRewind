@@ -1,0 +1,10 @@
+{% extends 'grocery_lists/base.html' %}
+{% block content %}
+<form method="post" class="card-panel center-align">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <button class="btn waves-effect waves-lightred red darken-2" type="submit" name="action">
+        confirm
+    </button>
+</form>
+{% endblock %}

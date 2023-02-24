@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from django.db import transaction
 from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 
@@ -11,6 +11,10 @@ class ListGroceryListView(ListView):
     model = GroceryList
     paginate_by = 10
     ordering = ['-created_on']
+    
+class DeleteGroceryListView(DeleteView):
+    model = GroceryList
+    success_url = reverse_lazy('groceries:list') 
     
 class CreateGroceryListView(CreateView):
     model = GroceryList

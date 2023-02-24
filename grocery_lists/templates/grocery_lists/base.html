@@ -1,7 +1,48 @@
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  .brand-logo, a {
+    color: #286e78 !Important;
+    
+  }
+  .brand-logo {
+    padding-left: 10px !Important;
+    font-family: monospace;
+  }
+  .logo-icon {
+    padding-right: -5px !Important;
+    margin-right: 5px;
+    border: 2px 0 2px 0 solid white;
+  }
+  body {
+    --stripe: #cfd8dc;
+    --bg: #e1e1e1;
+  
+    background: linear-gradient(135deg, var(--bg) 25%, transparent 25%) -50px 0,
+      linear-gradient(225deg, var(--bg) 25%, transparent 25%) -50px 0,
+      linear-gradient(315deg, var(--bg) 25%, transparent 25%),
+      linear-gradient(45deg, var(--bg) 25%, transparent 25%);
+    background-size: 100px 100px;
+    background-color: var(--stripe);
+}
+nav {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  border: 2px solid #e8e8e8
+}
+</style>
 <div class="container" style="padding-top:10px">
+  <nav>
+    <div class="nav-wrapper white">
+      <a href="{% url 'groceries:list' %}" class="brand-logo">
+        <span class="logo-container"><i class="material-icons left logo-icon">restaurant_menu</i>Grocery Lists</a></span>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="{% url 'groceries:list' %}">All Lists</a></li>
+        <li><a href="{% url 'groceries:create' %}">Create List</a></li>
+      </ul>
+    </div>
+  </nav>
 {% block content %}
 {% endblock %}
 </div>
