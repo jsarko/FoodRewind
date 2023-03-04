@@ -11,11 +11,16 @@ ENV PYTHONUNBUFFERED 1
 # create root directory for our project in the container
 RUN mkdir /food_rewind
 
-# Set the working directory to /music_service
-WORKDIR /food_rewind
-
 # Copy the current directory contents into the container at /music_service
 ADD . /food_rewind/
 
+WORKDIR /food_rewind
+
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
+RUN chmod -R +x scripts
+
+ENV PATH="scripts:/py/bin:$PATH"
+
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
