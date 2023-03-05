@@ -2,6 +2,7 @@ from django.shortcuts import render, reverse
 from .models import Recipe, Tags
 from .forms import RecipeForm
 from django.http import HttpResponseRedirect
+from django.views.generic import DetailView
 # Create your views here.
 
 
@@ -22,6 +23,10 @@ def recipe_details(request, pk):
         'recipe': recipe
     }
     return render(request, reverse('recipes:details', pk), context)
+
+
+class DetailRecipeListView(DetailView):
+    model = Recipe
 
 
 def add_recipe(request):
