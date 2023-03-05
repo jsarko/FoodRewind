@@ -1,0 +1,14 @@
+<nav class="black">
+  <div class="nav-wrapper container">
+    <a href="{% url 'recipes:list' %}" class="brand-logo">
+      <i class="material-icons left">fast_forward</i>
+      Food Rewind
+      <i class="material-icons right">fast_rewind</i>
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="{% url 'recipes:list' %}">Home</a></li>
+      <li><a href="{% url 'groceries:list' %}">Grocery Lists</a></li>
+      <li><a href="{% url 'recipes:create' %}">Add Recipe</a></li>
+    </ul>
+  </div>
+</nav>

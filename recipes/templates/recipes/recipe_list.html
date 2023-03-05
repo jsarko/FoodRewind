@@ -1,4 +1,4 @@
-{% extends 'food_rewind/base.html' %} {% block content %}
+{% extends 'recipes/base.html' %} {% block content %}
 
 <!-- TODO: Fix images so they take the black bar into account -->
 <div class="row">
@@ -6,7 +6,7 @@
     <div class="input-field col s12 search_style">
       <i class="material-icons prefix spin">search</i>
       <input type="text" id="autocomplete-input" class="autocomplete" />
-      <label class="" for="autocomplete-input">Search by keyword or dish name...</label>
+      <label class="" for="autocomplete-input">Search by keyword or recipe name...</label>
     </div>
   </div>
 </div>
@@ -25,14 +25,14 @@
     {% for item in food %}
     <div class="food-card">
       <div class="food-img">
-        <a href="{% url 'food:details' item.name %}">
+        <a href="{% url 'recipes:details' item.pk %}">
           <img src="{{item.image}}" />
           <span class="food-title">{{item.name}}</span>
         </a>
       </div>
     </div>
     {% empty %}
-    <p>You need to add a dish.</p>
+    <p>You need to add a recipe.</p>
     {% endfor %}
   </div>
 </div>
@@ -43,19 +43,19 @@
       { deg: d },
       {
         duration: 500,
-        step: function(now) {
+        step: function (now) {
           elem.css({
-            transform: "rotate(" + now + "deg)"
+            transform: "rotate(" + now + "deg)",
           });
-        }
+        },
       }
     );
   }
   $(".autocomplete")
-    .focusin(function() {
+    .focusin(function () {
       spin(360);
     })
-    .focusout(function() {
+    .focusout(function () {
       spin(-360);
     });
 </script>
