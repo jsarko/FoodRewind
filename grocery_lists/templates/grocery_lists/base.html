@@ -2,11 +2,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
-  .brand-logo, a {
+  .grocery-nav a {
     color: #286e78 !Important;
-    
   }
-  .brand-logo {
+  .grocery-logo {
     padding-left: 10px !Important;
     font-family: monospace;
   }
@@ -26,16 +25,31 @@
     background-size: 100px 100px;
     background-color: var(--stripe);
 }
-nav {
+.grocery-nav {
   background-color: #f8f8f8;
   border-radius: 5px;
   border: 2px solid #e8e8e8
 }
 </style>
+
+<nav class="black">
+  <div class="nav-wrapper container">
+    <a href="{% url 'recipes:list' %}" class="brand-logo">
+      <i class="material-icons left">fast_rewind</i>
+      Food Rewind
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="{% url 'recipes:list' %}">Home</a></li>
+      <li><a href="{% url 'groceries:list' %}">Grocery Lists</a></li>
+      <li><a href="{% url 'recipes:create' %}">Add Recipe</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="container" style="padding-top:10px">
-  <nav>
+  <nav class="grocery-nav">
     <div class="nav-wrapper white">
-      <a href="{% url 'groceries:list' %}" class="brand-logo">
+      <a href="{% url 'groceries:list' %}" class="grocery-logo brand-logo">
         <span class="logo-container"><i class="material-icons left logo-icon">restaurant_menu</i>Grocery Lists</a></span>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="{% url 'groceries:list' %}">All Lists</a></li>

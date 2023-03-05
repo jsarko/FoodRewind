@@ -21,15 +21,17 @@
   <body class="">
     <nav class="black">
       <div class="nav-wrapper container">
-        <a href="{% url 'food:index' %}" class="brand-logo">Food Rewind</a>
+        <a href="{% url 'recipes:list' %}" class="brand-logo">
+          <i class="material-icons left">fast_rewind</i>
+          Food Rewind
+        </a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="{% url 'food:index' %}">Home</a></li>
-          <li><a href="{% url 'food:add_dish' %}">Add Dish</a></li>
+          <li><a href="{% url 'recipes:list' %}">Home</a></li>
+          <li><a href="{% url 'groceries:list' %}">Grocery Lists</a></li>
+          <li><a href="{% url 'recipes:create' %}">Add Recipe</a></li>
         </ul>
       </div>
     </nav>
-    <div class="container">
-      {% block content %} {% endblock %}
-    </div>
+    <div class="container">{% block content %} {% endblock %}</div>
   </body>
 </html>

@@ -1,4 +1,4 @@
-{% extends 'food_rewind/base.html' %} {% block content %}
+{% extends 'recipes/base.html' %} {% block content %}
 
 <style>
   .header {
@@ -19,19 +19,17 @@
   <div class="col s12">
     <div class="row">
       <div class="col s12 l5">
-        <img src="{{dish.image}}" />
+        <img src="{{recipe.image}}" />
       </div>
       <div class="col s12 l7">
-        <span class="header">{{dish.name}}</span>
+        <span class="header">{{recipe.name}}</span>
         <ul>
-          {% for tag in dish.tags.all %}
+          {% for tag in recipe.tags.all %}
           <li class="tags">{{tag.name}}</li>
           {% empty %} No Tags {% endfor %}
         </ul>
         <div class="divider"></div>
-        <div class="section">
-          {{dish.recipe|safe}}
-        </div>
+        <div class="section">{{recipe.recipe|safe}}</div>
       </div>
     </div>
   </div>
