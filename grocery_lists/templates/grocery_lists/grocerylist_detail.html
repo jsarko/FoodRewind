@@ -19,7 +19,7 @@
     h5,p {
         color:white;
     }
-    h3 {
+    h3, h4 {
         color: #286e78;
         font-family: monospace;
     }
@@ -49,7 +49,7 @@
 </style>
 {% regroup object.groceries.all|dictsort:"category" by category as category_list %}
 <ul class="collapsible">
-    <h3 class="center-align">{{object.name}}</h3>
+    <h4 class="center-align">{{object.name}}</h4>
     <p class="center-align"><label >Created on: {{object.created_on}}</label></p>
     {% for category in category_list %}
         <li>

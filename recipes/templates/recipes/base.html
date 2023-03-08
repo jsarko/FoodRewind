@@ -19,13 +19,14 @@
     <link rel="stylesheet" href="{% static '/css/custom.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
-  <body class="">
+  <body>
     <nav class="black">
       <div class="nav-wrapper container">
         <a href="{% url 'recipes:list' %}" class="brand-logo">
           <i class="material-icons left">fast_rewind</i>
           Food Rewind
         </a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="{% url 'recipes:list' %}">Home</a></li>
           <li><a href="{% url 'groceries:list' %}">Grocery Lists</a></li>
@@ -33,6 +34,21 @@
         </ul>
       </div>
     </nav>
+    <ul class="sidenav" id="mobile-demo">
+      <li><a class="subheader">Food Rewind</a></li>
+      <li><a class="waves-effect" href="{% url 'recipes:list' %}">Home</a></li>
+      <li><a class="waves-effect" href="{% url 'recipes:create' %}">Add Recipe</a></li>
+      <li><a class="subheader">Grocery Lists</a></li>
+      <li><a class="waves-effect" href="{% url 'groceries:list' %}">All Lists</a></li>
+      <li><a class="waves-effect" href="{% url 'groceries:create' %}">Create List</a></li>
+    </ul>
     <div class="container">{% block content %} {% endblock %}</div>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.collapsible').collapsible();
+        $('.sidenav').sidenav();
+      });
+</script>
 </html>
