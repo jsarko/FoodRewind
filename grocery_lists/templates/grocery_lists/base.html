@@ -46,25 +46,7 @@
 {% include 'components/nav_bar.html' %}
 
 <div class="container" style="padding-top:10px">
-  <nav class="grocery-nav hide-on-small-only">
-    <div class="nav-wrapper white">
-      <a href="{% url 'groceries:list' %}" class="grocery-logo brand-logo">
-        <span class="logo-container"><i class="material-icons left logo-icon">restaurant_menu</i>Grocery Lists</a></span>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="{% url 'groceries:list' %}">All Lists</a></li>
-        <li><a href="{% url 'groceries:create' %}">Create List</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <ul class="sidenav" id="mobile-demo">
-    <li><a class="subheader">Food Rewind</a></li>
-    <li><a class="waves-effect" href="{% url 'recipes:list' %}">Home</a></li>
-    <li><a class="waves-effect" href="{% url 'recipes:create' %}">Add Recipe</a></li>
-    <li><a class="subheader">Grocery Lists</a></li>
-    <li><a class="waves-effect" href="{% url 'groceries:list' %}">All Lists</a></li>
-    <li><a class="waves-effect" href="{% url 'groceries:create' %}">Create List</a></li>
-  </ul>
+{% include 'grocery_lists/components/grocery_nav.html' %}
 {% block content %}
 {% endblock %}
 </div>
