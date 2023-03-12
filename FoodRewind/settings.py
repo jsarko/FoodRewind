@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'recipes.apps.RecipesConfig',
     'grocery_lists.apps.GroceryListsConfig',
     'corsheaders',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
