@@ -8,3 +8,8 @@
     - Display error if unable to parse recipe automatically
 - Fix Tags
 - Fix search/autocomplete
+- Meal plan features
+- Add ingredients from recipe to grocery list
+- Auto-categorize groceries
+    - GPT can do this but will likely be overkill
+    - Might be able to leverage the usda api
