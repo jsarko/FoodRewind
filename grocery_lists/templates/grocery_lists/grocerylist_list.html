@@ -22,6 +22,9 @@
   <a class="delete-icon" href="{% url 'groceries:delete' list.pk %}">
     <i class="material-icons right" style="padding-top: 18px">clear</i>
   </a>
+  <a class="edit-icon" href="{% url 'groceries:update' list.pk %}">
+    <i class="material-icons right" style="padding-top: 18px">edit</i>
+  </a>
   <a href="{% url 'groceries:detail' list.pk %}" class="collection-item">
     <span>{{list.name}}</span><br>
     <label class="">Created on: {{list.created_on}}</label>
