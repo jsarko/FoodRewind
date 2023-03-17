@@ -46,6 +46,12 @@
     .collapsible {
         background-color: white;
     }
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%
+    }
 </style>
 {% regroup object.groceries.all|dictsort:"category" by category as category_list %}
 <ul class="collapsible">
@@ -94,12 +100,45 @@
 
     function createQuickAddFormInput(element){
         let formElem = element.closest('.quick-add-container').find('.quick-add-form')
-        const categoryName = formElem.attr('data-context').toLowerCase()
-        const input = `<input data-attr='meat' type="text" value="" placeholder="Add a ${categoryName} item..." />`
-        formElem.html(
-            formElem.html() + input
+        const categoryName = formElem.attr('data-context')
+        const input = `<input class="quick-add-input" data-attr='${categoryName}' type="text" value="" placeholder="Add a ${categoryName.toLowerCase()} item..." />`
+        formElem.append(input)
+    }
+
+    function callQuickAddAPI(itemName, category, listID){
+        console.log("inputContext:", itemName, category, listID)
+        const payload = {
+            "csrfmiddlewaretoken": '{{csrf_token}}',
+            itemName: itemName,
+            category:category,
+            listID: listID
+        }
+        $.post(
+            '/groceries/quick-add',
+            payload
+        ).done(
+            (data) => {
+                console.log("Successful! Data:", data)
+            }
+        ).fail(
+            (data) => {
+                console.log("Failed! Data: ", data)
+            }
         )
     }
+
+    $('.quick-add-container').on('blur', '.quick-add-input', function(){
+        // When a quickAddInput is blurred (no longer selected/active/etc)
+        // sends the value to the quick add input. While processing should 
+        // show a spinner. On success will transform the input to a functional 
+        // checkbox to eliminate the need for a page refresh. On fail, show
+        // a failure message.
+        let elem = $(this)
+        let itemName = elem.val()
+        let itemCategory = elem.attr('data-attr')
+        let groceryListID = '{{object.id}}'
+        callQuickAddAPI(itemName, itemCategory, groceryListID)
+    })
 
     $('.quick-add-container').on('click', 'a.quick-add-btn', function(){
         let element = $(this);
