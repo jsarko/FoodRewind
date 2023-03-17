@@ -75,9 +75,14 @@
                             {% endif %}
                         </a>
                     {% endfor %}
+                    <div class="quick-add-container">
+                        <form data-context="{{category.grouper}}" class="quick-add-form collection-item"></form>
+                        <a href="#" class="collection-item blue-text quick-add-btn">
+                            <i class="material-icons left">add</i>Add another
+                        </a>
+                    </div>
                 </ul>
             </div>
-        </li>
         </li>
     {% endfor %}
 </ul>
@@ -86,6 +91,21 @@
     $(document).ready(function(){
         $('.collapsible').collapsible();
     });
+
+    function createQuickAddFormInput(element){
+        let formElem = element.closest('.quick-add-container').find('.quick-add-form')
+        const categoryName = formElem.attr('data-context').toLowerCase()
+        const input = `<input data-attr='meat' type="text" value="" placeholder="Add a ${categoryName} item..." />`
+        formElem.html(
+            formElem.html() + input
+        )
+    }
+
+    $('.quick-add-container').on('click', 'a.quick-add-btn', function(){
+        let element = $(this);
+        createQuickAddFormInput(element)
+    });
+
     $('.collapsible-header').click(
         () => {
             $('.active').css("background-color", "hotpink")
