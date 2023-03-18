@@ -78,6 +78,8 @@ def addItemtoList(request):
         itemName = request.POST.get('itemName')
         category = request.POST.get('category')
         listID = request.POST.get('listID')
+        if (not itemName or not category or not listID):
+            return HttpResponseBadRequest()
         gl = GroceryList.objects.get(pk=listID)
         obj = gl.groceries.create(
             name=itemName,
