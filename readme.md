@@ -15,3 +15,4 @@
     - Might be able to leverage the usda api
 - Soft delete grocery lists or way to archive
 - Clicking on Chevron/Grocery Category does not activate accordian.
+- Food we want to make/places we want to eat in the future
