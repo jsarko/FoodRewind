@@ -72,3 +72,20 @@ def addToBag(request, pk):
         return JsonResponse(list(items_in_bag.values()), safe=False)
     else:
         return HttpResponseBadRequest()
+    
+def addItemtoList(request):
+    if request.method == "POST":
+        itemName = request.POST.get('itemName')
+        category = request.POST.get('category')
+        listID = request.POST.get('listID')
+        if (not itemName or not category or not listID):
+            return HttpResponseBadRequest()
+        gl = GroceryList.objects.get(pk=listID)
+        obj = gl.groceries.create(
+            name=itemName,
+            category=category
+        )
+        return JsonResponse({"id": obj.pk})
+    else:
+        return HttpResponseBadRequest()
+        

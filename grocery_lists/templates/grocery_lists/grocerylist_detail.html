@@ -46,6 +46,12 @@
     .collapsible {
         background-color: white;
     }
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%
+    }
 </style>
 {% regroup object.groceries.all|dictsort:"category" by category as category_list %}
 <ul class="collapsible">
@@ -75,9 +81,14 @@
                             {% endif %}
                         </a>
                     {% endfor %}
+                    <div class="quick-add-container">
+                        <form data-context="{{category.grouper}}" class="quick-add-form collection-item hide"></form>
+                        <a href="#" class="collection-item blue-text quick-add-btn">
+                            <i class="material-icons left">add</i>Add another
+                        </a>
+                    </div>
                 </ul>
             </div>
-        </li>
         </li>
     {% endfor %}
 </ul>
@@ -86,6 +97,76 @@
     $(document).ready(function(){
         $('.collapsible').collapsible();
     });
+
+    function createQuickAddFormInput(element){
+        let formElem = element.closest('.quick-add-container').find('.quick-add-form')
+        const categoryName = formElem.attr('data-context')
+        const input = `<input required class="quick-add-input" data-attr='${categoryName}' type="text" value="" placeholder="Add a ${categoryName.toLowerCase()} item..." />`
+        formElem.append(input)
+        formElem.toggleClass('hide')
+    }
+
+    function transformInputToCollection(itemName, category, listID, objID){
+        let elem = $(`#${itemName}-${category}-${listID}`)
+        let elem2 = elem.closest('.quick-add-container')
+        let formElem = elem2.find('.quick-add-form')
+        console.log("TransformELEM:", elem)
+        console.log("TransformELEM2:", elem2)
+        let collectionField = `<a 
+        id='${category}-item-${objID}-quickadd' 
+        onclick="placeInBag('${category}-item-${objID}-quickadd', '${objID}', '${itemName}', '${category}')" 
+        href="#!" class="collection-item">
+            <i class="material-icons left">check_box_outline_blank</i>${itemName}
+        </a>`
+        elem.addClass('hide')
+        elem2.prepend(collectionField)
+        formElem.toggleClass('hide')
+    }
+
+    function callQuickAddAPI(itemName, category, listID){
+        const payload = {
+            "csrfmiddlewaretoken": '{{csrf_token}}',
+            itemName: itemName,
+            category:category,
+            listID: listID
+        }
+        rsData = {data: null, errors: null}
+        $.post(
+            '/groceries/quick-add',
+            payload
+        ).done(
+            (data) => {
+                transformInputToCollection(itemName, category, listID, data.id)
+            }
+        ).fail(
+            (errors) => {
+                console.log("Failed")
+                rsData['errors'] = errors
+            }
+        )
+        return rsData
+    }
+
+
+    $('.quick-add-container').on('blur', '.quick-add-input', function(){
+        // When a quickAddInput is blurred (no longer selected/active/etc)
+        // sends the value to the quick add input. While processing should 
+        // show a spinner. On success will transform the input to a functional 
+        // checkbox to eliminate the need for a page refresh. On fail, show
+        // a failure message.
+        let elem = $(this)
+        let itemName = elem.val()
+        let itemCategory = elem.attr('data-attr')
+        let groceryListID = '{{object.id}}'
+        elem.attr('id', `${itemName.replace(" ", "_")}-${itemCategory}-${groceryListID}`)
+        let rs = callQuickAddAPI(itemName, itemCategory, groceryListID)
+    })
+
+    $('.quick-add-container').on('click', 'a.quick-add-btn', function(){
+        let element = $(this);
+        createQuickAddFormInput(element)
+    });
+
     $('.collapsible-header').click(
         () => {
             $('.active').css("background-color", "hotpink")

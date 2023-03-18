@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/delete', views.DeleteGroceryListView.as_view(template_name="grocery_lists/grocerylist_delete.html"), name="delete"),
     path('<int:pk>/addToBag', views.addToBag, name='addToBag'),
     path('create', views.CreateGroceryListView.as_view(template_name="grocery_lists/grocerylist_create.html"), name='create'),
+    path('quick-add', views.addItemtoList, name='quickAdd'),
 ]
