@@ -10,6 +10,11 @@
       <li><a href="{% url 'recipes:list' %}">Home</a></li>
       <li><a href="{% url 'groceries:list' %}">Grocery Lists</a></li>
       <li><a href="{% url 'recipes:create' %}">Add Recipe</a></li>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>
