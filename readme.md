@@ -1,5 +1,13 @@
 ### Todo
+##### Done
 - ~~User system~~
+##### Priority
+- Clicking on Chevron/Grocery Category does not activate accordian.
+- Add ingredients from recipe to grocery list
+- Meal plan features
+- Soft delete grocery lists or way to archive
+- Food we want to make/places we want to eat in the future
+##### Everything Else
 - Add Recipe by URL
     - Use beautifulsoup to scrape the recipe url
     - Given the URL of a recipe, attempts to extract the recipe from the `print` option within the site
@@ -8,11 +16,9 @@
     - Display error if unable to parse recipe automatically
 - Fix Tags
 - Fix search/autocomplete
-- Meal plan features
-- Add ingredients from recipe to grocery list
 - Auto-categorize groceries
     - GPT can do this but will likely be overkill
     - Might be able to leverage the usda api
-- Soft delete grocery lists or way to archive
-- Clicking on Chevron/Grocery Category does not activate accordian.
-- Food we want to make/places we want to eat in the future
+- Split recipe descirption into ingredients w/ measurements and preparation w/ steps
+    - Serving size
+- Print Button
