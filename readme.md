@@ -1,5 +1,5 @@
 ### Todo
-- User system
+- ~~User system~~
 - Add Recipe by URL
     - Use beautifulsoup to scrape the recipe url
     - Given the URL of a recipe, attempts to extract the recipe from the `print` option within the site
