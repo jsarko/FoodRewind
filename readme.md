@@ -2,6 +2,8 @@
 ##### Done
 - ~~User system~~
 ##### Priority
+- ~~Persist database~~
+- Migrate data to newer tables
 - Clicking on Chevron/Grocery Category does not activate accordian.
 - Add ingredients from recipe to grocery list
 - Meal plan features
@@ -22,3 +24,4 @@
 - Split recipe descirption into ingredients w/ measurements and preparation w/ steps
     - Serving size
 - Print Button
+- Investigate how others apps handle meal planning and recipe input
