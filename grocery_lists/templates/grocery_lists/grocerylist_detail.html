@@ -62,7 +62,7 @@
             <div 
             id='category-{{ forloop.counter0 }}' 
             class="collapsible-header" 
-            onclick="handleAccordianClick('category-{{ forloop.counter0 }}')">
+            >
                 <i class="material-icons left">expand_more</i>
                 <span class="category-title" id="id-{{category.grouper}}-title">{{category.grouper}}</span>
                 <label class="item-count right"><span class="item-count-span" id="id-{{category.grouper}}-item-count">0</span>/<span id="id-{{category.grouper}}-total-count">{{category.list|length}}</span> Items</label>
@@ -95,7 +95,14 @@
 
 <script>
     $(document).ready(function(){
-        $('.collapsible').collapsible();
+        $('.collapsible').collapsible({
+            'onOpenStart': function(elem){
+                $(elem).find('.collapsible-header i').text('expand_less');
+            },
+            'onCloseStart': function(elem){
+                $(elem).find('.collapsible-header i').text('expand_more');
+            }
+        });
     });
 
     function createQuickAddFormInput(element){
@@ -147,7 +154,6 @@
         return rsData
     }
 
-
     $('.quick-add-container').on('blur', '.quick-add-input', function(){
         // When a quickAddInput is blurred (no longer selected/active/etc)
         // sends the value to the quick add input. While processing should 
@@ -166,21 +172,7 @@
         let element = $(this);
         createQuickAddFormInput(element)
     });
-
-    $('.collapsible-header').click(
-        () => {
-            $('.active').css("background-color", "hotpink")
-        }
-    )
-    function handleAccordianClick(id){
-        // Accordian HTML
-        let accordian_elem = $("#"+id)
-        if (accordian_elem.is(":contains('expand_more')")){
-            accordian_elem.html(accordian_elem.html().replace("expand_more", "expand_less"))
-        } else {
-            accordian_elem.html(accordian_elem.html().replace("expand_less", "expand_more"))
-        }
-    }
+    
     function placeInBag(element, itemId, itemName, itemCategory){
         // TODO: Convert element to a form and pass that back here
         let elemId = $("#"+element)
