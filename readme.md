@@ -1,15 +1,15 @@
 ### Todo
 ##### Done
 - ~~User system~~
-##### Priority
-- ~~Persist database~~
-- Migrate data to newer tables
 - ~~Clicking on Chevron/Grocery Category does not activate accordian.~~
-- Meal plan features
-- Add ingredients from recipe to grocery list
-- Soft delete grocery lists or way to archive
+- ~~Meal plan features~~
+- ~~Persist database~~
+##### Priority
+- Migrate data to newer tables
 - Food we want to make/places we want to eat in the future
 ##### Everything Else
+- Soft delete grocery lists or way to archive
+- Add ingredients from recipe to grocery list
 - Add Recipe by URL
     - Use beautifulsoup to scrape the recipe url
     - Given the URL of a recipe, attempts to extract the recipe from the `print` option within the site
