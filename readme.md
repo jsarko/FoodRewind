@@ -4,9 +4,9 @@
 ##### Priority
 - ~~Persist database~~
 - Migrate data to newer tables
-- Clicking on Chevron/Grocery Category does not activate accordian.
-- Add ingredients from recipe to grocery list
+- ~~Clicking on Chevron/Grocery Category does not activate accordian.~~
 - Meal plan features
+- Add ingredients from recipe to grocery list
 - Soft delete grocery lists or way to archive
 - Food we want to make/places we want to eat in the future
 ##### Everything Else

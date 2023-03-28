@@ -24,5 +24,6 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path('login/', LoginView.as_view(template_name="users/login.html", next_page="/"), name="login"),
     path('groceries/', include('grocery_lists.urls')),
+    path('meals/', include('meal_plans.urls')),
     path('', include('django.contrib.auth.urls')),
 ]

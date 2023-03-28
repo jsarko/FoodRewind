@@ -1,0 +1,33 @@
+{% extends 'meal_plans/base.html' %}
+{% block content %}
+<style>
+    .meal-date {
+        font-size: 1.5em;
+        border-right: 2px solid #d9b8b0;
+    }
+    .meal-details {
+        padding-left: 6% !Important;
+    }
+</style>
+{% for obj in object_list %}
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s2 meal-date">
+                        {{obj.meal_date}}
+                    </div>
+                    <div class="col s10 meal-details">
+                        <span class="card-title activator grey-text text-darken-4">{{obj.name}}</span>
+                        {% if obj.recipe_link %}
+                            <p><a href="{{obj.recipe_link}}" target="_blank">View Recipe</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div>
+</div>
+{% endfor %}
+{% endblock %}

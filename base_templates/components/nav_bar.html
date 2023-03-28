@@ -9,8 +9,9 @@
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="{% url 'recipes:list' %}">Home</a></li>
       {% if user.is_authenticated %}
-      <li><a href="{% url 'groceries:list' %}">Grocery Lists</a></li>
-      <li><a href="{% url 'recipes:create' %}">Add Recipe</a></li>
+      <li><a class="dropdown-trigger" href="#!" data-target="grocery-dropdown">Grocery Lists<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a class="dropdown-trigger" href="#!" data-target="meal-plan-dropdown">Meal Plan<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a class="dropdown-trigger" href="#!" data-target="recipe-dropdown">Recipes<i class="material-icons right">arrow_drop_down</i></a></li>
       <li><a href="{% url 'logout' %}">Logout</a></li>
       {% else %}
       <li><a href="{% url 'login' %}">Login</a></li>
@@ -19,6 +20,20 @@
   </div>
 </nav>
 
+<ul id="recipe-dropdown" class="dropdown-content black">
+  <li><a class="white-text" href="{% url 'recipes:list' %}">View Recipes</a></li>
+  <li><a class="white-text" href="{% url 'recipes:create' %}">Add a Recipe</a></li>
+</ul>
+
+<ul id="grocery-dropdown" class="dropdown-content black">
+  <li><a class="white-text" href="{% url 'groceries:list' %}">View Grocery Lists</a></li>
+  <li><a class="white-text" href="{% url 'groceries:create' %}">Create a List</a></li>
+</ul>
+
+<ul id="meal-plan-dropdown" class="dropdown-content black">
+  <li><a class="white-text" href="{% url 'meal_plan:list' %}">View Meals</a></li>
+  <li><a class="white-text" href="{% url 'meal_plan:create' %}">Add a Meal</a></li>
+</ul>
 
 <ul class="sidenav" id="mobile-nav">
   {% if user.is_authenticated %}
@@ -28,6 +43,9 @@
   <li><a class="subheader">Grocery Lists</a></li>
   <li><a class="waves-effect" href="{% url 'groceries:list' %}">All Lists</a></li>
   <li><a class="waves-effect" href="{% url 'groceries:create' %}">Create List</a></li>
+  <li><a class="subheader">Meal Plan</a></li>
+  <li><a href="{% url 'meal_plan:list' %}">View</a></li>
+  <li><a href="{% url 'meal_plan:create' %}">Add Meal</a></li>
   {% else %}
   <li><a href="{% url 'login' %}">Login</a></li>
   {% endif %}

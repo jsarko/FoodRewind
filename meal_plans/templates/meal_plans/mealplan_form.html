@@ -1,0 +1,26 @@
+{% extends 'meal_plans/base.html' %}
+{% block content %}
+<form method="POST" class="card-panel">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+    </button>
+</form>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  function parseDate(date){
+    formattedDate = new Date(date).toISOString()
+    return formattedDate.split("T")[0]
+  }
+  $("form").submit(function(){
+    let d = $("#id_meal_date").val()
+    const parsedDate = parseDate(d)
+    $("#id_meal_date").val(parsedDate)
+    return true
+  });
+});
+
+</script>
+{% endblock %}
