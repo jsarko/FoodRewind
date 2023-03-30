@@ -1,7 +1,7 @@
 {% extends 'recipes/base.html' %} {% block content %}
 
 <!-- TODO: Fix images so they take the black bar into account -->
-<div class="row">
+<div class="row card-panel">
   <div class="col s12">
     <div class="input-field col s12 search_style">
       <i class="material-icons prefix spin">search</i>
@@ -10,7 +10,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row card-panel">
   <div class="col l12">
     <ul>
       <span>Sort By:</span>
@@ -20,8 +20,10 @@
     </ul>
   </div>
 </div>
-<div class="row" style="margin-top: 20px">
+<div class="row card-panel" style="margin-top: 20px">
   <div class="col s12">
+    <h4 class="center recipe-container-title">Raspectful Racipes</h4>
+    <hr>
     {% for item in food %}
     <div class="food-card">
       <div class="food-img">

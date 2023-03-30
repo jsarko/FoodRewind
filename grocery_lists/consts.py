@@ -10,6 +10,10 @@ ALCOHOL = "ALCOHOL"
 PANTRY = "PANTRY"
 MEAT = "MEAT"
 DELI = "DELI"
+HOUSEHOLD = "HOUSEHOLD"
+PET = "PET"
+WELLNESS = "WELLNESS"
+BEAUTY = "BEAUTY"
 
 CATEGORY_CHOICES = (
     (UNCATEGORIZED, "Uncategorized"),
@@ -22,5 +26,9 @@ CATEGORY_CHOICES = (
     (ALCOHOL, "Alcohol"),
     (PANTRY, "Pantry"),
     (MEAT, "Meat"),
-    (DELI, "Deli")
+    (DELI, "Deli"),
+    (HOUSEHOLD, "Household"),
+    (PET, "Pet"),
+    (WELLNESS, "Wellness"),
+    (BEAUTY, "Beauty"),
 )

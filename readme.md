@@ -4,10 +4,14 @@
 - ~~Clicking on Chevron/Grocery Category does not activate accordian.~~
 - ~~Meal plan features~~
 - ~~Persist database~~
+- ~~Admin Panel~~
 ##### Priority
 - Migrate data to newer tables
+- Wire up Gunicorn
+- Clean up code
 - Food we want to make/places we want to eat in the future
 ##### Everything Else
+- Error pages
 - Soft delete grocery lists or way to archive
 - Add ingredients from recipe to grocery list
 - Add Recipe by URL
@@ -25,3 +29,9 @@
     - Serving size
 - Print Button
 - Investigate how others apps handle meal planning and recipe input
+
+
+## Building and Deploying with Docker
+- `docker-compose up --build` or `docker-compose build`
+- `aws lightsail push-container-image --service-name container-service-1 --label food-rewind-for-real --image foodrewind_web:latest`
+- Deploy in lightsail

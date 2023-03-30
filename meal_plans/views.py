@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from meal_plans.models import MealPlan
 from meal_plans.forms import MealPlanForm
+
 # Create your views here.
 class MealPlanListView(ListView):
     model = MealPlan
