@@ -6,6 +6,9 @@ services:
     command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: food_rewind
     volumes:
-      - .:/food_rewind
+      - db_data:/food_rewind/data
     ports:
       - "8000:8000"
+
+volumes:
+  db_data:
