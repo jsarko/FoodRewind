@@ -13,6 +13,11 @@ import os
 
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+# Load evironment variables from .env
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,12 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-erb%^p=0td6m-^z72l0k6ygq3nrijd)1vhgi9$aic_edc7kx0_'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = False if os.getenv("DJANGO_DEBUG_ACTIVE") == "FISH" else True
+DEBUG=True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["https://*.foodrewind.com", "localhost", "http://127.0.0.1:8000", "foodrewind.com"]
 
 CSRF_TRUSTED_ORIGINS = ['https://*.foodrewind.com']
 
@@ -83,13 +89,26 @@ WSGI_APPLICATION = 'FoodRewind.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'database', 'db.sqlite3'),
+if DEBUG == "debug":
+    # If debug is True, use local sqlite3 database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
-
+else:
+    # Use postgres in production
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("DEFAULT_DATABASE_NAME"),
+            "USER": os.environ.get("DEFAULT_DATABASE_USER"),
+            "PASSWORD": os.environ.get("DEFAULT_DATABASE_PASSWORD"),
+            "HOST": os.environ.get("DEFAULT_DATABASE_HOST"),
+            "PORT": os.environ.get("DEFAULT_DATABASE_PORT"),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

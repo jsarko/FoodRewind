@@ -7,10 +7,15 @@
 - ~~Admin Panel~~
 ##### Priority
 - Migrate data to newer tables
-- Wire up Gunicorn
-- Clean up code
 - Food we want to make/places we want to eat in the future
-##### Everything Else
+
+##### Bugs
+- Static files dont work when debug set to False
+- Fix Tags
+- Fix search/autocomplete
+
+##### Features
+- Wire up Gunicorn
 - Error pages
 - Soft delete grocery lists or way to archive
 - Add ingredients from recipe to grocery list
@@ -20,8 +25,6 @@
         - Will pass this html to prepopulate recipe description
     - Will attempt to derive the recipe image from the page as well
     - Display error if unable to parse recipe automatically
-- Fix Tags
-- Fix search/autocomplete
 - Auto-categorize groceries
     - GPT can do this but will likely be overkill
     - Might be able to leverage the usda api

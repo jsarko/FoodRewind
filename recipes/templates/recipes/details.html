@@ -29,6 +29,7 @@
           {% empty %} No Tags {% endfor %}
         </ul>
         <div class="divider"></div>
+        <span>Link: </span><a href="{{recipe.recipe_url}}" target="_blank">{{recipe.recipe_url}}</a>
         <div class="section">{{recipe.recipe|safe}}</div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render, reverse
 from .models import Recipe, Tags
 from .forms import RecipeForm
@@ -11,7 +13,7 @@ def recipe_list(request):
     tags = Tags.objects.all().order_by("name")
     context = {
         "food": food,
-        "tags": tags
+        "tags": tags,
     }
 
     return render(request, "recipes/recipe_list.html", context)
