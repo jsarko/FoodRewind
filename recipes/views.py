@@ -40,11 +40,13 @@ def add_recipe(request):
             # Process
             try:
                 raw_tags = form.cleaned_data['tags'].split(',')
-                tags = [t.strip() for t in raw_tags]
+                # Remove whitespace and filter out blank tags
+                tags = [t.strip() for t in raw_tags if t != '']
 
                 r = Recipe(
                     name=form.cleaned_data['name'],
                     recipe=form.cleaned_data['recipes'],
+                    recipe_url=form.cleaned_data['recipe_url'],
                     image=form.cleaned_data['image'],
                     notes=form.cleaned_data['notes']
                 )
