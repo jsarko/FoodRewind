@@ -1,0 +1,27 @@
+{% extends 'meal_plans/base.html' %}
+{% block content %}
+<style>
+    textarea {
+        border-radius: 5px;
+    }
+</style>
+<form method="POST" class="card-panel">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+    </button>
+</form>
+<hr>
+{% for item in object_list %}
+<div class="card-panel">
+    {% if item.recipe_link %}
+    <a href="{{item.recipe_link}}" target="_blank">{{item.name}}</a>
+    {% else %}
+    {{item.name}}
+    {% endif %}
+    <br>
+    <label>{{item.notes}}</label>
+</div>    
+{% endfor %}
+{% endblock %}

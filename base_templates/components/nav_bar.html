@@ -12,6 +12,7 @@
       <li><a class="dropdown-trigger" href="#!" data-target="grocery-dropdown">Grocery Lists<i class="material-icons right">arrow_drop_down</i></a></li>
       <li><a class="dropdown-trigger" href="#!" data-target="meal-plan-dropdown">Meal Plan<i class="material-icons right">arrow_drop_down</i></a></li>
       <li><a class="dropdown-trigger" href="#!" data-target="recipe-dropdown">Recipes<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a href="{% url 'meal_plan:wishlist' %}">Wishlist</a></li>
       <li><a href="{% url 'logout' %}">Logout</a></li>
       {% else %}
       <li><a href="{% url 'login' %}">Login</a></li>

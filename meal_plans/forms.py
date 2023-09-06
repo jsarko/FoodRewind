@@ -1,5 +1,5 @@
 from django.forms import ModelForm, CharField, TextInput, URLField, URLInput
-from .models import MealPlan
+from .models import MealPlan, Wishlist
 
 class MealPlanForm(ModelForm):
     meal_date = CharField(label='Meal Date',
@@ -17,3 +17,7 @@ class MealPlanForm(ModelForm):
         model = MealPlan
         exclude = ['user','created_on']
         
+class WishlistForm(ModelForm):
+    class Meta:
+        model = Wishlist
+        exclude = ('user','created_on',)

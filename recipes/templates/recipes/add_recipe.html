@@ -15,16 +15,43 @@
     >{{msg}}</p>
   </div>
 {% endif %}
-<form action="" method="post">
-  {% csrf_token %}
-  <table class=>
-    {{form.as_table}}
-  </table>
-  <button class="btn waves-effect waves-light black white-text" type="submit" name="action">
-    Submit
-    <i class="material-icons right">send</i>
-  </button>
-</form>
+<div class="row card-panel ">
+  <div class="col s12 ">
+    <ul class="tabs">
+      <li class="tab col s3 blue-text"><a class="active black-text" href="#form1">Add w/ Link</a></li>
+      <li class="tab col s3 blue-text"><a class="black-text" href="#form2">Type it Out</a></li>
+    </ul>
+  </div>
+  <div id="form1" class="col s12">
+    <form action="" method="post" style="margin-top: 30px">
+      {% csrf_token %}
+      {% for field in form %}
+        {% if field.name != 'recipes' %}
+          <div class="fieldWrapper">
+            {{field.errors}}
+            {{field.label_tag}} {{field}}
+          </div>
+        {% endif %}
+      {% endfor %}
+      <button class="btn waves-effect waves-light black white-text" type="submit" name="action">
+        Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </form>
+  </div>
+  <div id="form2" class="col s12">
+    <form action="" method="post">
+      {% csrf_token %}
+      <table class=>
+        {{form.as_table}}
+      </table>
+      <button class="btn waves-effect waves-light black white-text" type="submit" name="action">
+        Submit
+        <i class="material-icons right">send</i>
+      </button>
+    </form>
+  </div>
+</div>
 
 <script>
   $(function(){

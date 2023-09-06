@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 from django.shortcuts import render, reverse
 from .models import Recipe, Tags
@@ -24,12 +25,13 @@ def recipe_details(request, pk):
     context = {
         'recipe': recipe
     }
-    return render(request, reverse('recipes:details', pk), context)
-
+    if recipe.recipe:
+        return render(request, reverse('recipes:details', pk), context)
+    else:
+        return render(request, reverse('recipes:details_link_view', pk), context)
 
 class DetailRecipeListView(DetailView):
     model = Recipe
-
 
 def add_recipe(request):
     msg = request.GET.get("msg")
