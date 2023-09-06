@@ -30,9 +30,9 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False if os.getenv("DJANGO_DEBUG_ACTIVE") == "FISH" else True
-DEBUG=True
+DEBUG=bool(int(os.getenv("DJANGO_DEBUG")))
 
-ALLOWED_HOSTS = ["https://*.foodrewind.com", "localhost", "http://127.0.0.1:8000", "foodrewind.com"]
+ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = ['https://*.foodrewind.com']
 
@@ -89,8 +89,9 @@ WSGI_APPLICATION = 'FoodRewind.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if DEBUG == "debug":
+if DEBUG == True:
     # If debug is True, use local sqlite3 database
+    print("Using dev database")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -99,6 +100,7 @@ if DEBUG == "debug":
     }
 else:
     # Use postgres in production
+    print("using prod database")
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
