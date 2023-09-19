@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False if os.getenv("DJANGO_DEBUG_ACTIVE") == "FISH" else True
-DEBUG = bool(int(os.getenv("DJANGO_DEBUG")))
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -92,28 +92,16 @@ WSGI_APPLICATION = 'FoodRewind.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if DEBUG == True:
-    # If debug is True, use local sqlite3 database
-    print("Using dev database")
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": os.environ.get("DEFAULT_DATABASE_ENGINE"),
+        "NAME": os.environ.get("DEFAULT_DATABASE_NAME", os.path.join(BASE_DIR, 'db.sqlite3')),
+        "USER": os.environ.get("DEFAULT_DATABASE_USER"),
+        "PASSWORD": os.environ.get("DEFAULT_DATABASE_PASSWORD"),
+        "HOST": os.environ.get("DEFAULT_DATABASE_HOST"),
+        "PORT": os.environ.get("DEFAULT_DATABASE_PORT"),
     }
-else:
-    # Use postgres in production
-    print("using prod database")
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.environ.get("DEFAULT_DATABASE_NAME"),
-            "USER": os.environ.get("DEFAULT_DATABASE_USER"),
-            "PASSWORD": os.environ.get("DEFAULT_DATABASE_PASSWORD"),
-            "HOST": os.environ.get("DEFAULT_DATABASE_HOST"),
-            "PORT": os.environ.get("DEFAULT_DATABASE_PORT"),
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

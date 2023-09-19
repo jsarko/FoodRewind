@@ -2,7 +2,10 @@ version: '3'
 
 services:
   web:
-    build: .
+    build: 
+      context: "."
+      platforms: 
+       - "linux/amd64"
     # command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: food_rewind
     environment:
