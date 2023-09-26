@@ -47,6 +47,7 @@
   <li><a class="subheader">Meal Plan</a></li>
   <li><a href="{% url 'meal_plan:list' %}">View</a></li>
   <li><a href="{% url 'meal_plan:create' %}">Add Meal</a></li>
+  <li><a href="{% url 'meal_plan:wishlist' %}">Wishlist</a></li>
   {% else %}
   <li><a href="{% url 'login' %}">Login</a></li>
   {% endif %}
