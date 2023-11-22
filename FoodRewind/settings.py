@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'FoodRewind.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DEFAULT_DATABASE_ENGINE"),
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DEFAULT_DATABASE_NAME", os.path.join(BASE_DIR, 'db.sqlite3')),
         "USER": os.environ.get("DEFAULT_DATABASE_USER"),
         "PASSWORD": os.environ.get("DEFAULT_DATABASE_PASSWORD"),
