@@ -19,7 +19,7 @@ jobs:
       # TODO
       - name: Set base env vars
         run: |
-          echo "ECR_ID=996372235156.dkr.ecr.us-east-2.amazonaws.com/foodrewind" >> GITHUB_ENV
+          echo "ECR_ID=996372235156.dkr.ecr.us-east-2.amazonaws.com/foodrewind" >> $GITHUB_ENV
           echo "DOCKER_IMAGE_TAG=latest" >> $GITHUB_ENV
           echo "LIGHTSAIL_SERVICE_NAME=container-service-1" >> $GITHUB_ENV
           echo "LIGHTSAIL_CONTAINER_NAME=food-rewind" >> $GITHUB_ENV
@@ -46,7 +46,7 @@ jobs:
           REGISTRY: ${{ steps.aws-registry.outputs.awsRegistry }}
         shell: bash
         run: |
-          docker tag foodrewind:latest ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
+          docker tag foodrewind ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
           docker push ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
         
       - name: Deploy to AWS Lightsail
