@@ -80,7 +80,7 @@ jobs:
                   "command": ["config/entrypoint.sh"],
                   "environment": {
                     "DJANGO_SECRET_KEY": "${{ secrets.DJANGO_SECRET_KEY }}",
-                    "DEFAULT_DATABASE_ENGINE":"django.db.backends.postgresq",
+                    "DEFAULT_DATABASE_ENGINE":"django.db.backends.postgresql",
                     "DEFAULT_DATABASE_NAME":"appsdatabase",
                     "DEFAULT_DATABASE_USER":"${{ secrets.DATABASE_USER }}",
                     "DEFAULT_DATABASE_HOST":"${{ secrets.DATABASE_HOST }}",
