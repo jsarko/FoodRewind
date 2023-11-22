@@ -4,11 +4,7 @@ services:
   web:
     build: 
       context: "."
-      platforms: 
-       - "linux/amd64"
     # command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: food_rewind
-    environment:
-      - DJANGO_DEBUG_ACTIVE=FISH
     ports:
       - "8000:8000"

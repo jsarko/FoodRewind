@@ -28,7 +28,7 @@ jobs:
       - name: Build Docker Images
         shell: bash
         run: |
-          docker-compose build
+          docker build -t foodrewind:latest .
           docker images
       
       # Login to AWS ECR
@@ -46,7 +46,7 @@ jobs:
           REGISTRY: ${{ steps.aws-registry.outputs.awsRegistry }}
         shell: bash
         run: |
-          docker tag food_rewind-web:latest ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
+          docker tag foodrewind:latest ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
           docker push ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
         
       - name: Deploy to AWS Lightsail
