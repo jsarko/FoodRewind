@@ -29,5 +29,4 @@ EXPOSE 8000
 
 # This works but shouldnt be using djangos dev server.
 # Need to wire up gunicorn
-RUN python manage.py makemigrations && python manage.py migrate
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver
