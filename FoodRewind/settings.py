@@ -98,11 +98,11 @@ WSGI_APPLICATION = 'FoodRewind.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DEFAULT_DATABASE_NAME", os.path.join(BASE_DIR, 'db.sqlite3')),
-        "USER": os.environ.get("DEFAULT_DATABASE_USER"),
+        "NAME": "appsdatabase",
+        "USER": "postgres",
         "PASSWORD": os.environ.get("DEFAULT_DATABASE_PASSWORD"),
-        "HOST": os.environ.get("DEFAULT_DATABASE_HOST"),
-        "PORT": os.environ.get("DEFAULT_DATABASE_PORT"),
+        "HOST": "apps-db-instance.ci0b6ebvvvfd.us-east-1.rds.amazonaws.com",
+        "PORT": "5432",
     }
 }
 
