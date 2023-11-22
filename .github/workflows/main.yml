@@ -1,0 +1,94 @@
+name: food-rewind-cicd
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/README.md'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Repo Branch
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ github.token }}
+      
+      # Base environment varaibles for both Main and Dev
+      # TODO
+      - name: Set base env vars
+        run: |
+          echo "ECR_ID=996372235156.dkr.ecr.us-east-2.amazonaws.com/foodrewind" >> GITHUB_ENV
+          echo "DOCKER_IMAGE_TAG=latest" >> $GITHUB_ENV
+          echo "LIGHTSAIL_SERVICE_NAME=container-service-1" >> $GITHUB_ENV
+          echo "LIGHTSAIL_CONTAINER_NAME=food-rewind" >> $GITHUB_ENV
+
+      # Build Docker Images
+      - name: Build Docker Images
+        shell: bash
+        run: |
+          docker-compose build
+          docker images
+      
+      # Login to AWS ECR
+      - name: Configure AWS Elastic Container Registry
+        id: aws-registry
+        uses: goforboom/aws-container-registry-action@v1
+        with:
+          awsAccessKeyId: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          awsSecretAccessKey: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+          awsRegion: 'us-east-2'
+
+      # Push Images to AWS ECR
+      - name: Push to AWS Elastic Container Registry
+        env:
+          REGISTRY: ${{ steps.aws-registry.outputs.awsRegistry }}
+        shell: bash
+        run: |
+          docker tag food_rewind-web:latest ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
+          docker push ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
+        
+      - name: Deploy to AWS Lightsail
+        uses: fdiesel/github-action-deploy-aws-lightsail-container@v3.0.1
+        with:
+          image-name: alluredportal
+          image: ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
+          aws-region: us-east-2
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
+          aws-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-lightsail-clear-images: false
+          aws-lightsail-service: ${{ env.LIGHTSAIL_SERVICE_NAME }}
+          aws-lightsail-service-config: |
+            {
+              "serviceName": "${{env.LIGHTSAIL_SERVICE_NAME}}",
+              "publicEndpoint": {
+                "containerName": "${{env.LIGHTSAIL_CONTAINER_NAME}}",
+                "containerPort": 8000,
+                "healthCheck": {
+                  "healthyThreshold": 2,
+                  "timeoutSeconds": 30,
+                  "intervalSeconds": 60
+                }
+              },
+              "containers": {
+                "${{ env.LIGHTSAIL_CONTAINER_NAME }}": {
+                  "image": "${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}",
+                  "ports": {
+                    "8000": "HTTP"
+                  },
+                  "command": ["config/entrypoint.sh"],
+                  "environment": {
+                    "DJANGO_SECRET_KEY": "${{ secrets.DJANGO_SECRET_KEY }}",
+                    "DEFAULT_DATABASE_ENGINE":"django.db.backends.postgresq",
+                    "DEFAULT_DATABASE_NAME":"appsdatabase",
+                    "DEFAULT_DATABASE_USER":"${{ secrets.DATABASE_USER }}",
+                    "DEFAULT_DATABASE_HOST":"${{ secrets.DATABASE_HOST }}",
+                    "DEFAULT_DATABASE_PASSWORD":"${{ secrets.DATABASE_PASSWORD }}",
+                    "DEFAULT_DATABASE_PORT":"5432",
+                    "ALLOWED_HOSTS":"*"
+                  }
+                }
+              }
+            }
+          

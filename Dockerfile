@@ -24,9 +24,9 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
-# RUN chmod +x /food_rewind/entrypoint.sh
-# ENTRYPOINT ["/food_rewind/entrypoint.sh"]
+RUN chmod +x /food_rewind/entrypoint.sh
+ENTRYPOINT ["/food_rewind/entrypoint.sh"]
 
 # This works but shouldnt be using djangos dev server.
 # Need to wire up gunicorn
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
