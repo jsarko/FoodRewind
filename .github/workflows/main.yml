@@ -84,7 +84,7 @@ jobs:
                     "DEFAULT_DATABASE_NAME":"appsdatabase",
                     "DEFAULT_DATABASE_USER":"postgres",
                     "DEFAULT_DATABASE_HOST":"apps-db-instance.ci0b6ebvvvfd.us-east-1.rds.amazonaws.com",
-                    "DEFAULT_DATABASE_PASSWORD":"${{ secrets.DATABASE_PASSWORD }}",
+                    "DEFAULT_DATABASE_PASSWORD":"Unrobed9-Quartet-Hanky",
                     "DEFAULT_DATABASE_PORT":"5432",
                     "ALLOWED_HOSTS":"*"
                   }
