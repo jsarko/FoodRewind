@@ -8,11 +8,12 @@ CONDIMENT = "CONDIMENT"
 BEVERAGE = "BEVERAGE"
 ALCOHOL = "ALCOHOL"
 PANTRY = "PANTRY"
-MEAT = "MEAT"
+PROTEIN = "PROTEIN"
 DELI = "DELI"
 HOUSEHOLD = "HOUSEHOLD"
 PET = "PET"
 WELLNESS = "WELLNESS"
+SPICE = "SPICE"
 BEAUTY = "BEAUTY"
 
 CATEGORY_CHOICES = (
@@ -29,6 +30,7 @@ CATEGORY_CHOICES = (
     (PRODUCE, "Produce"),
     (HOUSEHOLD, "Household"),
     (PET, "Pet"),
-    (MEAT, "Meat"),
+    (PROTEIN, "Protein"),
+    (SPICE, "Spice"),
     (WELLNESS, "Wellness"),
 )

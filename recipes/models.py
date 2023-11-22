@@ -16,14 +16,14 @@ class Tags(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=255, blank=False)
     tags = models.ManyToManyField(Tags)
-    recipe = HTMLField()
+    recipe = HTMLField(null=True, blank=True)
     notes = models.TextField(blank=True, null=True)
     image = models.URLField()
     recipe_url = models.URLField(blank=True, null=True)
     slug = models.SlugField(null=True, unique=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
     def save(self, *args, **kwargs):
         if not self.slug:
