@@ -82,8 +82,8 @@ jobs:
                     "DJANGO_SECRET_KEY": "${{ secrets.DJANGO_SECRET_KEY }}",
                     "DEFAULT_DATABASE_ENGINE":"django.db.backends.postgresql",
                     "DEFAULT_DATABASE_NAME":"appsdatabase",
-                    "DEFAULT_DATABASE_USER":"${{ secrets.DATABASE_USER }}",
-                    "DEFAULT_DATABASE_HOST":"${{ secrets.DATABASE_HOST }}",
+                    "DEFAULT_DATABASE_USER":"postgres",
+                    "DEFAULT_DATABASE_HOST":"apps-db-instance.ci0b6ebvvvfd.us-east-1.rds.amazonaws.com",
                     "DEFAULT_DATABASE_PASSWORD":"${{ secrets.DATABASE_PASSWORD }}",
                     "DEFAULT_DATABASE_PORT":"5432",
                     "ALLOWED_HOSTS":"*"
