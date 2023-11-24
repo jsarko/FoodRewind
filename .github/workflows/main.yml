@@ -46,9 +46,10 @@ jobs:
           REGISTRY: ${{ steps.aws-registry.outputs.awsRegistry }}
         shell: bash
         run: |
-          docker tag foodrewind ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
-          docker push ${{ env.ECR_ID }}:${{ env.DOCKER_IMAGE_TAG }}
+          docker tag foodrewind ${{ env.ECR_ID }}:latest
+          docker push ${{ env.ECR_ID }}:latest
         
+        # Deploy image from ECR to AWS Lightsail
       - name: Deploy to AWS Lightsail
         uses: fdiesel/github-action-deploy-aws-lightsail-container@v3.0.1
         with:
@@ -77,7 +78,6 @@ jobs:
                   "ports": {
                     "8000": "HTTP"
                   },
-                  "command": ["config/entrypoint.sh"],
                   "environment": {
                     "DJANGO_SECRET_KEY": "${{ secrets.DJANGO_SECRET_KEY }}",
                     "DEFAULT_DATABASE_ENGINE":"django.db.backends.postgresql",

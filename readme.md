@@ -36,5 +36,6 @@
 
 ## Building and Deploying with Docker
 - `docker-compose up --build` or `docker-compose build`
-- `aws lightsail push-container-image --service-name container-service-1 --label food-rewind-for-real --image foodrewind_web:latest`
+- `aws --profile jsarko ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 996372235156.dkr.ecr.us-east-2.amazonaws.com/foodrewind`
+- `aws --profile jsarko lightsail push-container-image --service-name container-service-1 --label food-rewind-for-real --image foodrewind_web:latest`
 - Deploy in lightsail
