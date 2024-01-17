@@ -8,7 +8,41 @@
     .meal-details {
         padding-left: 6% !Important;
     }
+    .mealplan-mealtime {
+        font-weight: bold;
+    }
+    .mealplan-day {
+        font-weight: bold;
+    }
 </style>
+<table>
+    <thead>
+        <th></th>
+        <th class="mealplan-mealtime">Dinner</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="mealplan-day">Monday</td>
+            <td class="mealplan-dish">Spaghetti Squash</td>
+        </tr>
+        <tr>
+            <td class="mealplan-day">Tuesday</td>
+            <td class="mealplan-dish">Falaffel and Pita</td>
+        </tr>
+        <tr>
+            <td class="mealplan-day">Wednesday</td>
+            <td class="mealplan-dish">Grilled Chicken</td>
+        </tr>
+        <tr>
+            <td class="mealplan-day">Thursday</td>
+            <td class="mealplan-dish">Salmon and Brocolli</td>
+        </tr>
+        <tr>
+            <td class="mealplan-day">Friday</td>
+            <td class="mealplan-dish">Cuban Sandwhich</td>
+        </tr>
+    </tbody>
+</table>
 {% for obj in object_list %}
 <div class="row">
     <div class="col s12">

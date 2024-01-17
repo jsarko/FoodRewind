@@ -1,0 +1,81 @@
+{% extends 'recipes/base.html' %} {% block content %}
+
+<!-- TODO: Fix images so they take the black bar into account -->
+<div class="row card-panel" style="margin-top: 20px">
+  <div class="col s12">
+    <h4 class="center recipe-container-title">Recent Grocery Lists</h4>
+    <hr>
+    {% for list in grocery_lists %}
+    <div class="">
+      <div class="">
+        <a href="">
+          <li>{{list.name}}</a>li>
+        </a>
+      </div>
+    </div>
+    {% empty %}
+    <p>You need to add a recipe.</p>
+    {% endfor %}
+  </div>
+</div>
+<div class="row card-panel hide">
+  <div class="col s12">
+    <div class="input-field col s12 search_style">
+      <i class="material-icons prefix spin">search</i>
+      <input type="text" id="autocomplete-input" class="autocomplete" />
+      <label class="truncate" for="autocomplete-input">Search by keyword or recipe name...</label>
+    </div>
+  </div>
+</div>
+<div class="row card-panel hide">
+  <div class="col l12">
+    <ul>
+      <span>Sort By:</span>
+      {% for tag in tags %}
+      <li class="tags">{{tag.name}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="row card-panel" style="margin-top: 20px">
+  <div class="col s12">
+    <h4 class="center recipe-container-title">Raspectful Racipes</h4>
+    <hr>
+    {% for item in recipes %}
+    <div class="food-card">
+      <div class="food-img">
+        <a href="{% url 'recipes:details' item.pk %}">
+          <img src="{{item.image}}" />
+          <span class="food-title">{{item.name}}</span>
+        </a>
+      </div>
+    </div>
+    {% empty %}
+    <p>You need to add a recipe.</p>
+    {% endfor %}
+  </div>
+</div>
+<script>
+  function spin(d) {
+    var elem = $(".spin");
+    $({ deg: 0 }).animate(
+      { deg: d },
+      {
+        duration: 500,
+        step: function (now) {
+          elem.css({
+            transform: "rotate(" + now + "deg)",
+          });
+        },
+      }
+    );
+  }
+  $(".autocomplete")
+    .focusin(function () {
+      spin(360);
+    })
+    .focusout(function () {
+      spin(-360);
+    });
+</script>
+{% endblock %}

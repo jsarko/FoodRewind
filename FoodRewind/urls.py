@@ -21,8 +21,9 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
+    path("", include('dashboard.urls')),
     path('admin/', admin.site.urls),
-    path('', include('recipes.urls')),
+    path('recipes/', include('recipes.urls')),
     path("register/", views.register, name="register"),
     path('login/', LoginView.as_view(template_name="users/login.html", next_page="/"), name="login"),
     path('groceries/', include('grocery_lists.urls')),
