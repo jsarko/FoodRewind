@@ -24,8 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('recipes.urls')),
     path("register/", views.register, name="register"),
-    path('login/', LoginView.as_view(template_name="users/login.html", next_page="/"), name="login"),
+    path('login/', LoginView.as_view(template_name="users/login.html",
+         next_page="/"), name="login"),
+    path('logout/', LogoutView.as_view(next_page="/login/"), name="logout"),
     path('groceries/', include('grocery_lists.urls')),
     path('meals/', include('meal_plans.urls')),
-    path('', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

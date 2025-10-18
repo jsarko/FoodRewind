@@ -38,6 +38,10 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # DEBUG = False if os.getenv("DJANGO_DEBUG_ACTIVE") == "FISH" else True
 DEBUG = False
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
