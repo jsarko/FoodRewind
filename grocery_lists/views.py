@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
@@ -16,14 +17,12 @@ class ListGroceryListView(ListView):
     ordering = ['-created_on']
 
 
-@login_required
-class DeleteGroceryListView(DeleteView):
+class DeleteGroceryListView(LoginRequiredMixin, DeleteView):
     model = GroceryList
     success_url = reverse_lazy('groceries:list')
 
 
-@login_required
-class CreateGroceryListView(CreateView):
+class CreateGroceryListView(LoginRequiredMixin, CreateView):
     model = GroceryList
     fields = ["name", ]
     success_url = reverse_lazy('groceries:list')
@@ -49,8 +48,7 @@ class DetailGroceryListView(DetailView):
     model = GroceryList
 
 
-@login_required
-class UpdateGroceryListView(UpdateView):
+class UpdateGroceryListView(LoginRequiredMixin, UpdateView):
     model = GroceryList
     fields = ["name", ]
     success_url = reverse_lazy('groceries:list')
