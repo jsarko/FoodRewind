@@ -6,6 +6,8 @@ from .models import Recipe, Tags
 from .forms import RecipeForm
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
@@ -30,9 +32,12 @@ def recipe_details(request, pk):
     else:
         return render(request, reverse('recipes:details_link_view', pk), context)
 
+
 class DetailRecipeListView(DetailView):
     model = Recipe
 
+
+@login_required
 def add_recipe(request):
     msg = request.GET.get("msg")
     if request.method == 'POST':

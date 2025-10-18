@@ -24,9 +24,9 @@ mimetypes.add_type("text/css", ".css", True)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-X_FRAME_OPTIONS = 'ALLOWALL'
+# X_FRAME_OPTIONS = 'ALLOWALL'
 
-XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
+XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -36,13 +36,23 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False if os.getenv("DJANGO_DEBUG_ACTIVE") == "FISH" else True
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 3600  # increase once verified
+X_FRAME_OPTIONS = 'DENY'
+
+ALLOWED_HOSTS = ["foodrewind.com", "www.foodrewind.com"]
 
 CSRF_TRUSTED_ORIGINS = ['https://*.foodrewind.com']
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOWED_ORIGINS = [
+    "https://foodrewind.com",
+    "https://www.foodrewind.com",
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -63,13 +73,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',          # move here
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'FoodRewind.urls'
