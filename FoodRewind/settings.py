@@ -44,12 +44,13 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 3600  # increase once verified
 X_FRAME_OPTIONS = 'DENY'
+SESSION_COOKIE_DOMAIN = '.foodrewind.com'  # optional, to share cookies
 
 ALLOWED_HOSTS = ["foodrewind.com", "www.foodrewind.com"]
-
 CSRF_TRUSTED_ORIGINS = ['https://*.foodrewind.com']
 
 CORS_ORIGIN_ALLOW_ALL = False
